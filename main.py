@@ -1,6 +1,13 @@
 # Телеграм-бот v.004
 from io import BytesIO
 from time import sleep
+from __future__ import unicode_literals
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
+from youtubesearchpython import VideosSearch
+import youtube_dl
+#загрузить библиотеку pip install spotipy youtubesearchpython youtube_dl
+
 
 import telebot  # pyTelegramBotAPI 4.3.1
 from telebot import types
@@ -324,8 +331,46 @@ def get_anekdot():
         return array_anekdots[0]
     else:
         return ""
+# -----------------------------------------------------------------------
+def get_kurs():
+    url = requests.get('https://www.cbr.ru/currency_base/daily/')
+    k = bs4.BeautifulSoup(url.text, "html.parser")
+    urlv = k.select(".table-wrapper ")
+    url_print = urlv[0].getText()
+    a = str(url_print)
+    return a
+print(get_kurs())
+# -----------------------------------------------------------------------
+url = input("Введи ссылку на трек: ")
+client_id = "81613aba3f90412188cf18dd02abbb77" # Сюда вводим полученные данные из панели спотифая
+secret = "ef78997743ea43a385fdcac35d110836" # Сюда вводим полученные данные из панели спотифая
+auth_manager = SpotifyClientCredentials(client_id=client_id, client_secret=secret)
+spotify = spotipy.Spotify(auth_manager=auth_manager)
 
+def music(result):
+    performers = ""
+    music = result['name']
+    for names in result["artists"]:
+    performers = performers + names["name"] + ", "
+    performers = performers.rstrip(", ")
+    video = search(music, performers)
+    name = f"{performers} - {music}"
+    print(name)
+    ydl_opts = {'format': 'bestaudio/best', 'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '192',}], 'outtmpl': f'./{name}.webm'}
+    download(video, ydl_opts)
+print("Готово!")
 
+def search(music, performers):
+  videosSearch = VideosSearch(f'{performers} - {music}', limit = 1)
+  videoresult = videosSearch.result()["result"][0]["link"]
+  return videoresult
+
+def download(videoresult, ydl_opts):
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    ydl.download([videoresult])
+
+result = spotify.track(url)
+music(result)
 # -----------------------------------------------------------------------
 def get_news():
     array_anekdots = []
