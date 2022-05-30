@@ -26,7 +26,7 @@ bot = telebot.TeleBot('5228642369:AAGQJwrL9paeUtQ1U4T-CqZOlJ3Bb0haZsw')  # Со�
 def command(message, res=False):
     chat_id = message.chat.id
     bot.send_sticker(chat_id, "CAACAgIAAxkBAAIaeWJEeEmCvnsIzz36cM0oHU96QOn7AAJUAANBtVYMarf4xwiNAfojBA")
-    txt_message = f"Привет, {message.from_user.first_name}! Я тестовый бот для курса программирования на языке Python"
+    txt_message = f"Привет, {message.from_user.first_name}"
     bot.send_message(chat_id, text=txt_message, reply_markup=Menu.getMenu(chat_id, "Главное меню").markup)
 
 
@@ -341,7 +341,7 @@ def get_kurs():
     return a
 print(get_kurs())
 # -----------------------------------------------------------------------
-url = input("Введи ссылку на трек: ")
+urlm = input("Введи ссылку на трек: ")
 client_id = "81613aba3f90412188cf18dd02abbb77" # Сюда вводим полученные данные из панели спотифая
 secret = "ef78997743ea43a385fdcac35d110836" # Сюда вводим полученные данные из панели спотифая
 auth_manager = SpotifyClientCredentials(client_id=client_id, client_secret=secret)
@@ -369,7 +369,7 @@ def download(videoresult, ydl_opts):
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
     ydl.download([videoresult])
 
-result = spotify.track(url)
+result = spotify.track(urlm)
 music(result)
 # -----------------------------------------------------------------------
 def get_news():
