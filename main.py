@@ -389,6 +389,18 @@ def get_news():
 
 
 # -----------------------------------------------------------------------
+def get_weather():
+    from yaweather import Russia, YaWeather
+
+    w = YaWeather(
+        api_key='c6f90e3f-5193-46b6-bad5-68d02645adaf')
+    mesto = w.forecast(Russia, Moscow)
+
+    for i in mesto.forecast:
+        day = i.parts.day_short
+        a = (i'{i.date} | {day.temp} °C, {day.condition}')
+        return a
+# -----------------------------------------------------------------------
 def get_foxURL():
     url = ""
     req = requests.get('https://randomfox.ca/floof/')

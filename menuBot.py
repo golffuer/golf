@@ -89,7 +89,7 @@ class Menu:
         return cls.cur_menu.get(chat_id)
 
 
-m_main = Menu("Главное меню", buttons=["Развлечения", "Игры", "ДЗ", "Помощь", "Спотик", "Курс"])
+m_main = Menu("Главное меню", buttons=["Развлечения", "Игры", "ДЗ", "Помощь", "Спотик", "Курс", "Погода"])
 
 m_games = Menu("Игры", buttons=["Камень, ножницы, бумага", "Игра в 21", "Угадай кто?", "Выход"], parent=m_main)
 m_game_21 = Menu("Игра в 21", buttons=["Карту!", "Стоп!", "Выход"], parent=m_games, handler="game_21")
@@ -104,3 +104,5 @@ m_fun = Menu("Развлечения", buttons=["Прислать собаку",
 m_spoty = Menu("Спотик", send_message=["Кидай трек"], parent=m_main)
 
 m_kurs = Menu("Курс", send_message=["Гружу"], parent=m_main)
+
+m_weather = Menu("Погода", parent=m_main)
