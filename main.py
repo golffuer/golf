@@ -3,6 +3,7 @@ from io import BytesIO
 from time import sleep
 from __future__ import unicode_literals
 import spotipy
+import yaweather
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 from youtubesearchpython import VideosSearch
 import youtube_dl
