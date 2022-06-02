@@ -395,7 +395,7 @@ def get_weather():
 
     w = YaWeather(
         api_key='c6f90e3f-5193-46b6-bad5-68d02645adaf')
-    mesto = w.forecast(Russia, Moscow)
+    mesto = w.forecast(Russia.Moscow)
 
     for i in mesto.forecast:
         day = i.parts.day_short
